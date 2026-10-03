@@ -1,0 +1,33 @@
+[project]
+name = "si"
+version = "0.1.0"
+description = "say(1) for VoxCPM2 TTS: text on stdin -> speech, with the model kept warm on Apple Silicon (mlx-audio)"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+requires-python = ">=3.12,<3.14"
+dependencies = [
+    # 0.5.7 is the first known-good version with mlx_audio.tts.models.voxcpm2
+    "mlx-audio>=0.5.7,<0.6",
+    "numpy",
+    "sounddevice>=0.5.6",
+]
+
+[project.urls]
+Repository = "https://github.com/arosl/voxcpm-si"
+
+[project.scripts]
+si = "si.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.11,<0.13"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
+
+[tool.ruff.lint]
+# Pyflakes and the basic pycodestyle errors; newer ruff defaults flag the
+# word-list idiom ("a b c".split()) and wrapped strings in test tables.
+select = ["E4", "E7", "E9", "F"]
